@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <package name="hibernate" extends="struts-default">
+        <interceptors>
+            <interceptor name="theinterceptor1" class="net.imwork.zhanlong.interceptor.TheInterceptor1">
+            </interceptor>
+        </interceptors>
+
+        <action name="savePerson" class="net.imwork.zhanlong.action.PersonAction" method="savePerson">
+            <result name="success" type="redirectAction">listAllPersons</result>
+        </action>
+
+        <action name="listAllPersons" class="net.imwork.zhanlong.action.PersonAction" method="listAllPersons">
+            <result name="success">/WEB-INF/listAll.jsp</result>
+            <result name="input">/WEB-INF/error.jsp</result>
+            <interceptor-ref name="theinterceptor1"/>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <action name="getSinglePerson" class="net.imwork.zhanlong.action.PersonAction" method="getSinglePerson">
+            <result name="success">/WEB-INF/getSinglePerson.jsp</result>
+            <result name="input">/WEB-INF/error.jsp</result>
+            <interceptor-ref name="theinterceptor1"/>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <action name="updatePPerson" class="net.imwork.zhanlong.action.PersonAction" method="getSinglePerson">
+            <result name="success">/WEB-INF/updatePerson.jsp</result>
+        </action>
+
+        <action name="updatePerson" class="net.imwork.zhanlong.action.PersonAction" method="updatePerson">
+            <result name="success" type="redirectAction">listAllPersons</result>
+        </action>
+
+
+        <action name="deletePerson" class="net.imwork.zhanlong.action.PersonAction" method="deletePerson">
+            <result name="success" type="redirectAction">listAllPersons</result>
+        </action>
+
+        <action name="ognlAction" class="net.imwork.zhanlong.ognl.OgnlAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="execAndWait"></interceptor-ref>
+            <result name="wait">wait.jsp</result>
+            <result name="success">/ognl.jsp</result>
+        </action>
+    </package>
+
+</struts>
